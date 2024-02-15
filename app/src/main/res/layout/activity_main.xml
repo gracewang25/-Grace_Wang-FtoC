@@ -52,29 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@+id/textViewConvertedFahrenheit"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <TextView
-        android:id="@+id/textViewConvertedCelsius"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Converted to Celsius"
-        app:layout_constraintTop_toBottomOf="@id/seekBarF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
 
-    <TextView
-        android:id="@+id/textViewConvertedFahrenheit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Converted to Fahrenheit"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConvertedCelsius"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

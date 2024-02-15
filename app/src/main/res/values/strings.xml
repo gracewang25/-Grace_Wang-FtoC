@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">[Grace Wang] FtoC</string>
+    <string name="celsius_format">%d°C</string>
+    <string name="fahrenheit_format">%d°F</string>
 </resources>

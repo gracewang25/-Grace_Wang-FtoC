@@ -15,59 +15,59 @@ class MainActivity : AppCompatActivity() {
         val seekBarFahrenheit = findViewById<SeekBar>(R.id.seekBarF)
         val textViewFahrenheit = findViewById<TextView>(R.id.textViewF)
         val textViewMessage = findViewById<TextView>(R.id.textViewMessage)
-        val textViewConvertedCelsius = findViewById<TextView>(R.id.textViewConvertedCelsius)
-        val textViewConvertedFahrenheit = findViewById<TextView>(R.id.textViewConvertedFahrenheit)
 
-        // Initialize SeekBars to halfway points
-        seekBarCelsius.progress = 50
-        seekBarFahrenheit.progress = 122
+        // Update initial text views to reflect the halfway points
+        val initialCelsius = 50
+        val initialFahrenheit = celsiusToFahrenheit(initialCelsius)
+        textViewCelsius.text = getString(R.string.celsius_format, initialCelsius)
+        textViewFahrenheit.text = getString(R.string.fahrenheit_format, initialFahrenheit)
 
-        textViewCelsius.text = "50°C"
-        textViewFahrenheit.text = "122°F"
-        updateMessage(50, textViewMessage)
+        // Set initial progress for SeekBars
+        seekBarCelsius.progress = initialCelsius
+        seekBarFahrenheit.progress = initialFahrenheit
+
+        // Update message based on the initial temperature
+        updateMessage(initialCelsius, textViewMessage)
 
         seekBarCelsius.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val fahrenheit = progress * 9 / 5 + 32
-                textViewConvertedFahrenheit.text = "$fahrenheit°F"
-                textViewCelsius.text = "$progress°C"
+                val fahrenheit = celsiusToFahrenheit(progress)
+                textViewCelsius.text = getString(R.string.celsius_format, progress)
+                textViewFahrenheit.text = getString(R.string.fahrenheit_format, fahrenheit)
                 updateMessage(progress, textViewMessage)
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
         seekBarFahrenheit.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val celsius = fahrenheitToCelsius(progress)
                 if (progress < 32) {
-                    textViewFahrenheit.text = "$progress°F"
-                    textViewConvertedCelsius.text = "0°C"
+                    textViewFahrenheit.text = getString(R.string.fahrenheit_format, 32)
+                    textViewCelsius.text = getString(R.string.celsius_format, 0)
                 } else {
-                    val celsius = (progress - 32) * 5 / 9
-                    textViewConvertedCelsius.text = "$celsius°C"
-                    textViewFahrenheit.text = "$progress°F"
-                    updateMessage(celsius, textViewMessage)
+                    textViewFahrenheit.text = getString(R.string.fahrenheit_format, progress)
+                    textViewCelsius.text = getString(R.string.celsius_format, celsius)
                 }
+                updateMessage(celsius, textViewMessage)
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 if (seekBar?.progress ?: 0 < 32) {
                     seekBar?.progress = 32
-                    textViewFahrenheit.text = "32°F"
-                    textViewConvertedCelsius.text = "0°C"
-                    updateMessage(0, textViewMessage)
                 }
             }
         })
-
     }
+
+    private fun celsiusToFahrenheit(celsius: Int): Int = (celsius * 9 / 5) + 32
+
+    private fun fahrenheitToCelsius(fahrenheit: Int): Int = (fahrenheit - 32) * 5 / 9
 
     private fun updateMessage(celsius: Int, textViewMessage: TextView) {
         textViewMessage.text = if (celsius <= 20) {
