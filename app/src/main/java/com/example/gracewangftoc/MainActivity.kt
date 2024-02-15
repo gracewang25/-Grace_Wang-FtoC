@@ -16,17 +16,14 @@ class MainActivity : AppCompatActivity() {
         val textViewFahrenheit = findViewById<TextView>(R.id.textViewF)
         val textViewMessage = findViewById<TextView>(R.id.textViewMessage)
 
-        // Update initial text views to reflect the halfway points
         val initialCelsius = 50
         val initialFahrenheit = celsiusToFahrenheit(initialCelsius)
         textViewCelsius.text = getString(R.string.celsius_format, initialCelsius)
         textViewFahrenheit.text = getString(R.string.fahrenheit_format, initialFahrenheit)
 
-        // Set initial progress for SeekBars
         seekBarCelsius.progress = initialCelsius
         seekBarFahrenheit.progress = initialFahrenheit
 
-        // Update message based on the initial temperature
         updateMessage(initialCelsius, textViewMessage)
 
         seekBarCelsius.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
