@@ -10,10 +10,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val seekBarCelsius = findViewById<SeekBar>(R.id.seekBarC)
-        val textViewCelsius = findViewById<TextView>(R.id.textViewC)
-        val seekBarFahrenheit = findViewById<SeekBar>(R.id.seekBarF)
-        val textViewFahrenheit = findViewById<TextView>(R.id.textViewF)
+        val sbC = findViewById<SeekBar>(R.id.seekBarC)
+        val tvC = findViewById<TextView>(R.id.textViewC)
+        val sbF = findViewById<SeekBar>(R.id.seekBarF)
+        val tvF = findViewById<TextView>(R.id.textViewF)
         val textViewMessage = findViewById<TextView>(R.id.textViewMessage)
+
+        sbC.progress = 50
+        sbF.progress = 122
+        tvC.text = "50°C"
+        tvF.text = "122°F"
+        updateM(50, textViewMessage)
+
     }
+    private fun updateM(celsius: Int, textViewMessage: TextView) {
+        textViewMessage.text = if (celsius <= 20) {
+            "I wish it were warmer."
+        } else {
+            "I wish it were colder."
+        }
 }
